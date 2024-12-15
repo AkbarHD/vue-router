@@ -6,8 +6,8 @@ import { useRoute, useRouter ,RouterView } from 'vue-router';
 import products from '../data/products.json'
 const route = useRoute();
 const router = useRouter();
-// console.log(route);
-// console.log(router);
+// console.log('route : ', route);
+// console.log('router : ', router);
 const product = products.find((product) => product.id === parseInt(route.params.id));
 function showOwner() {
     router.push({
@@ -19,13 +19,19 @@ function showOwner() {
 }
 </script>
 <template>
-    <div>
+    <div v-if="product">
         <h1>Ini halaman Product</h1>
         <h2>{{ product.name }} - {{ product.price }}</h2>
         <p>Year : {{ product.year }}</p>
+        <p>Owner : {{ product.owner }}</p>
+        <p>Owner : {{ product.owner.name }}</p>
+        <button @click="showOwner">Show Owner</button>
+        <RouterView />
+    </div>
+    <div v-else>
+        <h1>Product not found</h1>
     </div>
 
-    <button @click="showOwner">Show Owner</button>
+    
     <!-- fungsinya untuk children -->
-    <RouterView />
 </template>
